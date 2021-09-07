@@ -47,7 +47,7 @@
 
     <scm>
         <developerConnection>
-            scm:git:git@github.com:AnastasiaAndruhovich/pet-clinic.git
+            scm:git:ssh://git@github.com/AnastasiaAndruhovich/pet-clinic.git
         </developerConnection>
         <tag>pet-clinic-0.0.1</tag>
     </scm>
