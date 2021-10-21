@@ -18,8 +18,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import static org.hamcrest.Matchers.hasProperty;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.*;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
@@ -136,5 +135,16 @@ class OwnerControllerTest {
                 .andExpect(model().attributeExists("owner"));
 
         verify(ownerService).save(ArgumentMatchers.any());
+    }
+
+    @Test
+    void processFindFormEmptyReturnMany() throws Exception {
+        when(ownerService.findAllByLastNameLike(anyString()))
+                .thenReturn(Arrays.asList(Owner.builder().id(1L).build(), Owner.builder().id(2L).build()));
+
+        mockMvc.perform(get("/owners").param("lastName", ""))
+                .andExpect(status().isOk())
+                .andExpect(view().name("owners/ownersList"))
+                .andExpect(model().attribute("selections", hasSize(2)));
     }
 }
